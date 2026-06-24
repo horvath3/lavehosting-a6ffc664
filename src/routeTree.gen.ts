@@ -13,10 +13,17 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 import { Route as AuthenticatedServersIndexRouteImport } from './routes/_authenticated/servers.index'
 import { Route as AuthenticatedServersIdRouteImport } from './routes/_authenticated/servers.$id'
 import { Route as AuthenticatedServersIdIndexRouteImport } from './routes/_authenticated/servers.$id.index'
+import { Route as AuthenticatedServersIdSettingsRouteImport } from './routes/_authenticated/servers.$id.settings'
+import { Route as AuthenticatedServersIdFilesRouteImport } from './routes/_authenticated/servers.$id.files'
+import { Route as AuthenticatedServersIdEditRouteImport } from './routes/_authenticated/servers.$id.edit'
+import { Route as AuthenticatedServersIdConsoleRouteImport } from './routes/_authenticated/servers.$id.console'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -37,9 +44,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAccountRoute = AuthenticatedAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedServersIndexRoute =
@@ -59,22 +81,60 @@ const AuthenticatedServersIdIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedServersIdRoute,
   } as any)
+const AuthenticatedServersIdSettingsRoute =
+  AuthenticatedServersIdSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedServersIdRoute,
+  } as any)
+const AuthenticatedServersIdFilesRoute =
+  AuthenticatedServersIdFilesRouteImport.update({
+    id: '/files',
+    path: '/files',
+    getParentRoute: () => AuthenticatedServersIdRoute,
+  } as any)
+const AuthenticatedServersIdEditRoute =
+  AuthenticatedServersIdEditRouteImport.update({
+    id: '/edit',
+    path: '/edit',
+    getParentRoute: () => AuthenticatedServersIdRoute,
+  } as any)
+const AuthenticatedServersIdConsoleRoute =
+  AuthenticatedServersIdConsoleRouteImport.update({
+    id: '/console',
+    path: '/console',
+    getParentRoute: () => AuthenticatedServersIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/services': typeof ServicesRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/servers/$id': typeof AuthenticatedServersIdRouteWithChildren
   '/servers/': typeof AuthenticatedServersIndexRoute
+  '/servers/$id/console': typeof AuthenticatedServersIdConsoleRoute
+  '/servers/$id/edit': typeof AuthenticatedServersIdEditRoute
+  '/servers/$id/files': typeof AuthenticatedServersIdFilesRoute
+  '/servers/$id/settings': typeof AuthenticatedServersIdSettingsRoute
   '/servers/$id/': typeof AuthenticatedServersIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/services': typeof ServicesRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/servers': typeof AuthenticatedServersIndexRoute
+  '/servers/$id/console': typeof AuthenticatedServersIdConsoleRoute
+  '/servers/$id/edit': typeof AuthenticatedServersIdEditRoute
+  '/servers/$id/files': typeof AuthenticatedServersIdFilesRoute
+  '/servers/$id/settings': typeof AuthenticatedServersIdSettingsRoute
   '/servers/$id': typeof AuthenticatedServersIdIndexRoute
 }
 export interface FileRoutesById {
@@ -83,9 +143,16 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/services': typeof ServicesRoute
+  '/_authenticated/account': typeof AuthenticatedAccountRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/servers/$id': typeof AuthenticatedServersIdRouteWithChildren
   '/_authenticated/servers/': typeof AuthenticatedServersIndexRoute
+  '/_authenticated/servers/$id/console': typeof AuthenticatedServersIdConsoleRoute
+  '/_authenticated/servers/$id/edit': typeof AuthenticatedServersIdEditRoute
+  '/_authenticated/servers/$id/files': typeof AuthenticatedServersIdFilesRoute
+  '/_authenticated/servers/$id/settings': typeof AuthenticatedServersIdSettingsRoute
   '/_authenticated/servers/$id/': typeof AuthenticatedServersIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -94,21 +161,48 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/services'
+    | '/account'
+    | '/admin'
     | '/dashboard'
+    | '/settings'
     | '/servers/$id'
     | '/servers/'
+    | '/servers/$id/console'
+    | '/servers/$id/edit'
+    | '/servers/$id/files'
+    | '/servers/$id/settings'
     | '/servers/$id/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/services' | '/dashboard' | '/servers' | '/servers/$id'
+  to:
+    | '/'
+    | '/auth'
+    | '/services'
+    | '/account'
+    | '/admin'
+    | '/dashboard'
+    | '/settings'
+    | '/servers'
+    | '/servers/$id/console'
+    | '/servers/$id/edit'
+    | '/servers/$id/files'
+    | '/servers/$id/settings'
+    | '/servers/$id'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/services'
+    | '/_authenticated/account'
+    | '/_authenticated/admin'
     | '/_authenticated/dashboard'
+    | '/_authenticated/settings'
     | '/_authenticated/servers/$id'
     | '/_authenticated/servers/'
+    | '/_authenticated/servers/$id/console'
+    | '/_authenticated/servers/$id/edit'
+    | '/_authenticated/servers/$id/files'
+    | '/_authenticated/servers/$id/settings'
     | '/_authenticated/servers/$id/'
   fileRoutesById: FileRoutesById
 }
@@ -149,11 +243,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/account': {
+      id: '/_authenticated/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AuthenticatedAccountRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/servers/': {
@@ -177,15 +292,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedServersIdIndexRouteImport
       parentRoute: typeof AuthenticatedServersIdRoute
     }
+    '/_authenticated/servers/$id/settings': {
+      id: '/_authenticated/servers/$id/settings'
+      path: '/settings'
+      fullPath: '/servers/$id/settings'
+      preLoaderRoute: typeof AuthenticatedServersIdSettingsRouteImport
+      parentRoute: typeof AuthenticatedServersIdRoute
+    }
+    '/_authenticated/servers/$id/files': {
+      id: '/_authenticated/servers/$id/files'
+      path: '/files'
+      fullPath: '/servers/$id/files'
+      preLoaderRoute: typeof AuthenticatedServersIdFilesRouteImport
+      parentRoute: typeof AuthenticatedServersIdRoute
+    }
+    '/_authenticated/servers/$id/edit': {
+      id: '/_authenticated/servers/$id/edit'
+      path: '/edit'
+      fullPath: '/servers/$id/edit'
+      preLoaderRoute: typeof AuthenticatedServersIdEditRouteImport
+      parentRoute: typeof AuthenticatedServersIdRoute
+    }
+    '/_authenticated/servers/$id/console': {
+      id: '/_authenticated/servers/$id/console'
+      path: '/console'
+      fullPath: '/servers/$id/console'
+      preLoaderRoute: typeof AuthenticatedServersIdConsoleRouteImport
+      parentRoute: typeof AuthenticatedServersIdRoute
+    }
   }
 }
 
 interface AuthenticatedServersIdRouteChildren {
+  AuthenticatedServersIdConsoleRoute: typeof AuthenticatedServersIdConsoleRoute
+  AuthenticatedServersIdEditRoute: typeof AuthenticatedServersIdEditRoute
+  AuthenticatedServersIdFilesRoute: typeof AuthenticatedServersIdFilesRoute
+  AuthenticatedServersIdSettingsRoute: typeof AuthenticatedServersIdSettingsRoute
   AuthenticatedServersIdIndexRoute: typeof AuthenticatedServersIdIndexRoute
 }
 
 const AuthenticatedServersIdRouteChildren: AuthenticatedServersIdRouteChildren =
   {
+    AuthenticatedServersIdConsoleRoute: AuthenticatedServersIdConsoleRoute,
+    AuthenticatedServersIdEditRoute: AuthenticatedServersIdEditRoute,
+    AuthenticatedServersIdFilesRoute: AuthenticatedServersIdFilesRoute,
+    AuthenticatedServersIdSettingsRoute: AuthenticatedServersIdSettingsRoute,
     AuthenticatedServersIdIndexRoute: AuthenticatedServersIdIndexRoute,
   }
 
@@ -195,13 +346,19 @@ const AuthenticatedServersIdRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedServersIdRoute: typeof AuthenticatedServersIdRouteWithChildren
   AuthenticatedServersIndexRoute: typeof AuthenticatedServersIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAccountRoute: AuthenticatedAccountRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedServersIdRoute: AuthenticatedServersIdRouteWithChildren,
   AuthenticatedServersIndexRoute: AuthenticatedServersIndexRoute,
 }
