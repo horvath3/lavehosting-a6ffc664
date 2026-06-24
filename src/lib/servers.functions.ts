@@ -125,7 +125,7 @@ export const enqueueCommand = createServerFn({ method: "POST" })
     const { error } = await supabase.from("server_commands").insert({
       server_id: data.server_id,
       kind: data.kind,
-      payload: data.payload ?? null,
+      payload: (data.payload ?? null) as any,
       created_by: userId,
     });
     if (error) throw new Error(error.message);
