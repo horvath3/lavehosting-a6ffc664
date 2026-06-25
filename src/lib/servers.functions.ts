@@ -81,6 +81,14 @@ export const deleteServer = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
+export const completeProvisioning = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((input) => z.object({ id: z.string().uuid() }).parse(input))
+  .handler(async ({ data }) => {
+    await runnerRequest<RunnerServer>(`/api/v1/servers/${data.id}`);
+    return { ok: true };
+  });
+
 export const enqueueCommand = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .validator((input) =>
