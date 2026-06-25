@@ -36,6 +36,7 @@ const en: Dict = {
   "marketing.services.coming": "Coming soon",
 
   // Dashboard
+  "nav.dashboard": "Dashboard",
   "dash.welcome": "Welcome back,",
   "dash.subtitle": "Here's what's happening with your servers.",
   "dash.newServer": "New server",
@@ -189,6 +190,7 @@ const hu: Dict = {
   "marketing.services.available": "Most elérhető",
   "marketing.services.coming": "Hamarosan",
 
+  "nav.dashboard": "Vezérlőpult",
   "dash.welcome": "Üdv újra,",
   "dash.subtitle": "Itt láthatod, mi történik a szervereiddel.",
   "dash.newServer": "Új szerver",
