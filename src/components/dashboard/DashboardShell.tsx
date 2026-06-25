@@ -45,10 +45,10 @@ function AppSidebar() {
   const isAdmin = me.data?.roles.includes("admin");
 
   const nav = [
-    { title: t("dash.welcome").replace(/[, ]+$/, "") === "Welcome back" ? "Dashboard" : "Dashboard", to: "/dashboard", icon: LayoutDashboard, label: t("server.tab.overview") === "Áttekintés" ? "Vezérlőpult" : "Dashboard" },
-    { title: "Servers", to: "/servers", icon: Server, label: t("servers.title") },
-    { title: "Account", to: "/account", icon: User, label: t("account.title") },
-    { title: "Settings", to: "/settings", icon: Settings, label: t("settings.title") },
+    { to: "/dashboard", icon: LayoutDashboard, label: t("nav.dashboard") },
+    { to: "/servers", icon: Server, label: t("servers.title") },
+    { to: "/account", icon: User, label: t("account.title") },
+    { to: "/settings", icon: Settings, label: t("settings.title") },
   ];
 
   return (
@@ -64,7 +64,7 @@ function AppSidebar() {
               {nav.map((item) => {
                 const active = pathname === item.to || pathname.startsWith(item.to + "/");
                 return (
-                  <SidebarMenuItem key={item.to}>
+                  <SidebarMenuItem key={item.to as string}>
                     <SidebarMenuButton asChild isActive={active}>
                       <Link to={item.to} className="flex items-center gap-2">
                         <item.icon className="h-4 w-4" />
