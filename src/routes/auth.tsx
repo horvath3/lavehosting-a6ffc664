@@ -27,8 +27,12 @@ export const Route = createFileRoute("/auth")({
   }),
   beforeLoad: async () => {
     if (typeof window === "undefined") return;
-    const { data } = await supabase.auth.getSession();
-    if (data.session) throw redirect({ to: "/dashboard" });
+    try {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) throw redirect({ to: "/dashboard" });
+    } catch (error) {
+      console.error("[Supabase] Unable to check auth session.", error);
+    }
   },
   component: AuthPage,
 });
