@@ -12,4 +12,14 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    optimizeDeps: {
+      // framer-motion's CJS bundle (dist/cjs/index.js) uses require('motion-dom') and
+      // require('motion-utils'). Without pre-bundling, Vite resolves those as ESM module
+      // namespace objects — causing "Class extends value [object Module] is not a constructor"
+      // at runtime whenever framer-motion tries to subclass MotionValue or VisualElement.
+      // Force Vite to pre-bundle all three together so CJS require() gets proper interop.
+      include: ["framer-motion", "motion-dom", "motion-utils"],
+    },
+  },
 });
