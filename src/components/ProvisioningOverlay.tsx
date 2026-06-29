@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import * as motion from "framer-motion/m";
 import { Check, Loader2, RefreshCw, Trash2 } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -119,28 +119,25 @@ export function ProvisioningOverlay({ serverId, startedAt, durationS, onComplete
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            <AnimatePresence mode="wait">
-              {completed ? (
-                <motion.div
-                  key="check"
-                  initial={{ scale: 0, rotate: -90 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 18 }}
-                >
-                  <Check className="h-12 w-12 text-white drop-shadow" strokeWidth={3} />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="spin"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, rotate: 360 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ rotate: { duration: 2.5, repeat: Infinity, ease: "linear" }, opacity: { duration: 0.2 } }}
-                >
-                  <Loader2 className="h-12 w-12 text-white" />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {completed ? (
+              <motion.div
+                key="check"
+                initial={{ scale: 0, rotate: -90 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 18 }}
+              >
+                <Check className="h-12 w-12 text-white drop-shadow" strokeWidth={3} />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="spin"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, rotate: 360 }}
+                transition={{ rotate: { duration: 2.5, repeat: Infinity, ease: "linear" }, opacity: { duration: 0.2 } }}
+              >
+                <Loader2 className="h-12 w-12 text-white" />
+              </motion.div>
+            )}
           </motion.div>
         </div>
 
@@ -173,22 +170,19 @@ export function ProvisioningOverlay({ serverId, startedAt, durationS, onComplete
             />
           </div>
           <div className="mt-2 flex justify-between text-xs">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentStep.key}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.25 }}
-                className="flex items-center gap-1.5 text-muted-foreground"
-              >
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[oklch(0.72_0.18_155)] opacity-60" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[oklch(0.72_0.18_155)]" />
-                </span>
-                {t(currentStep.key)}
-              </motion.div>
-            </AnimatePresence>
+            <motion.div
+              key={currentStep.key}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className="flex items-center gap-1.5 text-muted-foreground"
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[oklch(0.72_0.18_155)] opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[oklch(0.72_0.18_155)]" />
+              </span>
+              {t(currentStep.key)}
+            </motion.div>
             <span className="font-mono tabular-nums text-muted-foreground">{Math.floor(pct)}%</span>
           </div>
         </div>

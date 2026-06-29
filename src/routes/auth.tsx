@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate, Link, redirect } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 import { Loader2 } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";

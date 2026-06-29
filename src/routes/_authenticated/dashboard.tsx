@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 import { Server, Plus, Activity, Cpu, MemoryStick, ArrowUpRight, type LucideIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";

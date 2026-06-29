@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import * as motion from "framer-motion/m";
 import { ArrowRight, Bot, Cpu, Globe2, ShieldCheck, Sparkles, Terminal, Zap } from "lucide-react";
 import { Backdrop } from "@/components/brand/Backdrop";
 import { Button } from "@/components/ui/button";
